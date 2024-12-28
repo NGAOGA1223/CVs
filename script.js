@@ -34,10 +34,14 @@ document.addEventListener('DOMContentLoaded', function() {
         setTheme(e.matches);
     });
 
-    // Updated PDF download functionality
+    // PDF download functionality with animation handling
     async function handleDownload() {
         const downloadButton = document.getElementById('btn-download');
         const btnText = downloadButton.querySelector('.btn-text');
+
+        // Hide buttons during PDF generation
+        downloadButton.style.display = 'none';
+        themeToggle.style.display = 'none';
 
         downloadButton.classList.add('downloaded');
         btnText.style.animation = 'textFadeOut 0.3s forwards';
@@ -47,19 +51,50 @@ document.addEventListener('DOMContentLoaded', function() {
             btnText.style.animation = 'textFadeIn 0.3s forwards';
         }, 300);
 
-        try {
-            const response = await fetch('/Steve_Ngoc_Quoc_CV.pdf');
-            if (!response.ok) throw new Error('PDF not found');
+        // Temporarily switch to light theme for PDF generation
+        const wasDarkTheme = body.classList.contains('dark-theme');
+        if (wasDarkTheme) {
+            body.classList.remove('dark-theme');
+        }
 
-            const blob = await response.blob();
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.style.display = 'none';
-            a.href = url;
-            a.download = 'Steve_Ngoc_Quoc_CV.pdf';
-            document.body.appendChild(a);
-            a.click();
-            window.URL.revokeObjectURL(url);
+        try {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            // Temporarily disable animations by adding the no-animation class
+            const container = document.querySelector('.container');
+            container.classList.add('no-animation');
+
+            // Use html2canvas to capture the HTML content
+            const canvas = await html2canvas(container, {
+                scale: 2, // Increase the scale for better quality
+                useCORS: true, // Enable CORS if needed
+                logging: false // Disable logging for production
+            });
+            const imgData = canvas.toDataURL('image/png');
+
+            // Add the image to the PDF
+            const imgWidth = 190; // Width of the PDF page
+            const pageHeight = 295; // Height of the PDF page
+            const imgHeight = (canvas.height * imgWidth) / canvas.width;
+            let heightLeft = imgHeight;
+            let position = 10;
+
+            doc.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
+            heightLeft -= pageHeight;
+
+            while (heightLeft >= 0) {
+                position = heightLeft - imgHeight;
+                doc.addPage();
+                doc.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+            }
+
+            // Save the PDF
+            doc.save('Steve_Ngoc_Quoc_CV.pdf');
+
+            // Re-enable animations
+            container.classList.remove('no-animation');
 
             btnText.textContent = 'Downloaded!';
             btnText.style.animation = 'textFadeIn 0.3s forwards';
@@ -68,6 +103,15 @@ document.addEventListener('DOMContentLoaded', function() {
             btnText.textContent = 'Error. Try again.';
             btnText.style.animation = 'textFadeIn 0.3s forwards';
         } finally {
+            // Restore the original theme
+            if (wasDarkTheme) {
+                body.classList.add('dark-theme');
+            }
+
+            // Show buttons again after PDF generation
+            downloadButton.style.display = 'flex';
+            themeToggle.style.display = 'block';
+
             setTimeout(() => {
                 downloadButton.classList.remove('downloaded');
                 btnText.textContent = 'Download CV';
@@ -102,4 +146,3 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(item);
     });
 });
-

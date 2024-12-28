@@ -111,18 +111,30 @@ body.dark-theme {
     font-size: 14px;
 }
 
-.info ul {
+.info {
     padding: 0;
     margin: 0;
     list-style: none;
     text-align: right;
-    line-height: 30px;
+    line-height: 20px;
+}
+.info h2 {
+    padding-top: 7.5px
+}
+
+.info h4 {
+    margin-bottom: 10px;
 }
 
 h2 {
     padding: 0;
     margin: 0 0 20px 0;
     color: var(--primary-color);
+}
+
+h4 {
+    font-size: large;
+    text-decoration: underline;
 }
 
 .intro {
@@ -240,12 +252,17 @@ h2 {
     width: 40px;
     height: auto;
     padding-left: 15px;
-    padding-top: 15px
+    padding-top: 15px;
 }
 
 .lg-item:first-child img {
     width: 45px;
     padding-left: 0px;
+}
+
+.lg-item:last-child img {
+    width: 50px;
+    height: auto;
 }
 
 .linkEffect--insideOut::before {
@@ -391,12 +408,14 @@ h2 {
     .button {
         display: none !important;
     }
+
     body {
         width: 210mm;
         height: 297mm;
         margin: 0;
         padding: 0;
     }
+
     .container {
         width: 100%;
         height: 100%;
@@ -405,29 +424,39 @@ h2 {
         box-sizing: border-box;
         box-shadow: none !important;
     }
+
     .avatar img {
         width: 150px;
         height: 150px;
     }
+
     .name h1 {
         font-size: 24px;
     }
+
     .name .specialize {
         font-size: 16px;
     }
+
     .lg img {
         width: 30px;
     }
+
     .lg-item:first-child img {
         width: 35px;
     }
+
     h2 {
         font-size: 18px;
     }
-    .experience-item, .project .item {
+
+    .experience-item,
+    .project .item {
         margin-bottom: 10px;
     }
-    #btn-download, #themeToggle {
+
+    #btn-download,
+    #themeToggle {
         display: none !important;
     }
 }
@@ -640,114 +669,138 @@ body.dark-theme .experience-item::before {
 }
 
 #btn-download {
-  cursor: pointer;
-  display: block;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  -webkit-tap-highlight-color: transparent;
-  position: absolute;
-  bottom: 20px;
+    cursor: pointer;
+    display: block;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    -webkit-tap-highlight-color: transparent;
+    position: absolute;
+    bottom: 20px;
 }
 
 #btn-download:hover {
-  background: rgba(34, 50, 84, 0.03);
+    background: rgba(34, 50, 84, 0.03);
 }
 
 #btn-download svg {
-  margin: 16px 0 0 16px;
-  fill: none;
-  transform: translate3d(0, 0, 0);
+    margin: 16px 0 0 16px;
+    fill: none;
+    transform: translate3d(0, 0, 0);
 }
 
 #btn-download svg polyline,
 #btn-download svg path {
-  stroke: #0077FF;
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  transition: all 0.3s ease;
-  transition-delay: 0.3s;
+    stroke: #0077FF;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: all 0.3s ease;
+    transition-delay: 0.3s;
 }
 
 #btn-download svg path#check {
-  stroke-dasharray: 38;
-  stroke-dashoffset: 114;
-  transition: all 0.4s ease;
+    stroke-dasharray: 38;
+    stroke-dashoffset: 114;
+    transition: all 0.4s ease;
 }
 
 #btn-download.downloaded svg .svg-out {
-  opacity: 0;
-  animation: drop 0.3s linear;
-  transition-delay: 0.4s;
+    opacity: 0;
+    animation: drop 0.3s linear;
+    transition-delay: 0.4s;
 }
 
 #btn-download.downloaded svg path#check {
-  stroke: #20CCA5;
-  stroke-dashoffset: 174;
-  transition-delay: 0.4s;
+    stroke: #20CCA5;
+    stroke-dashoffset: 174;
+    transition-delay: 0.4s;
 }
 
 @keyframes drop {
-  20% {
-    transform: translate(0, -3px);
-  }
-  80% {
-    transform: translate(0, 2px);
-  }
-  95% {
-    transform: translate(0, 0);
-  }
+    20% {
+        transform: translate(0, -3px);
+    }
+
+    80% {
+        transform: translate(0, 2px);
+    }
+
+    95% {
+        transform: translate(0, 0);
+    }
 }
 
 #btn-download {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: auto;
-  height: 48px;
-  border-radius: 24px;
-  padding: 0 20px;
-  background-color: #0077FF;
-  color: #ffffff;
-  font-weight: bold;
-  transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    height: 48px;
+    border-radius: 24px;
+    padding: 0 20px;
+    background-color: #0077FF;
+    color: #ffffff;
+    font-weight: bold;
+    transition: all 0.3s ease;
 }
 
 #btn-download:hover {
-  background-color: #0066CC;
+    background-color: #0066CC;
 }
 
 #btn-download svg {
-  margin: 0 10px 0 0;
+    margin: 0 10px 0 0;
 }
 
 #btn-download .btn-text {
-  font-size: 16px;
-  opacity: 1;
-  transition: opacity 0.3s ease;
+    font-size: 16px;
+    opacity: 1;
+    transition: opacity 0.3s ease;
 }
 
 #btn-download.downloaded .btn-text {
-  opacity: 0;
+    opacity: 0;
 }
 
 #btn-download svg polyline,
 #btn-download svg path {
-  stroke: #ffffff;
+    stroke: #ffffff;
 }
 
 #btn-download.downloaded svg path#check {
-  stroke: #ffffff;
+    stroke: #ffffff;
 }
 
 @keyframes textFadeOut {
-  0% { opacity: 1; transform: translateY(0); }
-  100% { opacity: 0; transform: translateY(-10px); }
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
 }
 
 @keyframes textFadeIn {
-  0% { opacity: 0; transform: translateY(10px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
 
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.no-animation * {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+}
+.hidden {
+    display: none !important;
+}
